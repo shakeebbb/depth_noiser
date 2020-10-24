@@ -1,13 +1,21 @@
 <launch>
-  <!-- Nodelet manager for this pipeline -->
   <node pkg="nodelet" type="nodelet" args="manager"
         name="manager" output="screen"/>
-        
-    <remap from="/depth_image" to="/head/kinect2/qhd/image_depth"/>
-    <remap from="/output_depth" to="/head/kinect2/qhd/noisy_depth"/>
-    <node name="mask" pkg="depth_noiser" type="depth_noiser_node" output="screen">
-    <param name="constant_noise" value="0.01"/>
-    <param name="linear_noise" value="0.001"/>
-    <param name="quadratic_noise" value="0.0001"/>
+      
+    <node name="mask" ns="$(env TOF_FORE_NAME)" pkg="depth_noiser" type="depth_noiser_node" output="screen" clear_params="true">
+
+    <remap from="/depth_image" to="depth/image_rect_raw"/>
+    <remap from="/noised_depth" to="depth/image_rect_raw_noisy"/>
+
+    <param name="constant_noise" value="0.2"/>
+    <param name="linear_noise" value="0.000"/>
+    <param name="quadratic_noise" value="0.00000000"/>
+    
+    <param name="z_max_for_noise_addition" value="1"/>
+    <param name="z_min_for_noise_addition" value="0.1"/>
+    <param name="pixel_interval_for_noise_addition" value="500"/>
+
+    <param name="depth_units" value="mm"/> <!-- "mm", "m" -->
+
     </node>
 </launch>

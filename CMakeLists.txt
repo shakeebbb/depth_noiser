@@ -16,7 +16,7 @@ find_package(catkin REQUIRED COMPONENTS sensor_msgs  roscpp rosconsole)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-   INCLUDE_DIRS include
+   #INCLUDE_DIRS include
    CATKIN_DEPENDS sensor_msgs roscpp rosconsole
 )
 
